@@ -1,6 +1,7 @@
-package exceptions;
+import customexceptions.ObservedException;
+import customexceptions.ConditionWhichThrowsException;
 
-class checkedExceptions{	
+class CheckedExceptions{	
 	
 	public static void main(String [] args){
 		

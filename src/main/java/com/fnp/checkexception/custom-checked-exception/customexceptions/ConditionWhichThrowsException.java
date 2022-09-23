@@ -1,4 +1,4 @@
-package exceptions;
+package customexceptions;
 
 public class ConditionWhichThrowsException{
 	 

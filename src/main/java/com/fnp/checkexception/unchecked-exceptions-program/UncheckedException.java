@@ -1,6 +1,6 @@
 import customexception.*;
 
-class uncheckedException{	
+class UncheckedException{	
 	public static void main(String [] args){
 	
 	try{
