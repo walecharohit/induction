@@ -1,11 +1,11 @@
-import customexception.*;
+import resourcecontainer.*;
 
-class UncheckedException{	
+class Main{	
 	public static void main(String [] args){
 	
 	try{
-			ClassWhichThrowsException obj = new ClassWhichThrowsException();
-			obj.conditionChecker(0);
+			NumberEquality number = new NumberEquality();
+			number.numberChecker(0);
 	}
 			
 	catch(ObservedException e){
