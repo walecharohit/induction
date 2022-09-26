@@ -1,12 +1,12 @@
 import resourcecontainer.ObservedException;
-import resourcecontainer.Equality;
+import resourcecontainer.NumberEquality;
 
 class Main{	
 	
 	public static void main(String [] args){
 		
 		try{
-			Equality equals = new Equality();
+			NumberEquality equals = new NumberEquality();
 			equals.conditionChecker(6);
 		}
 		catch(ObservedException e){

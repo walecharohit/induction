@@ -1,6 +1,6 @@
 package resourcecontainer;
 
-public class Equality{
+public class NumberEquality{
 	 
 	  int num1 = 5;
 	 	public void conditionChecker(int num2)throws ObservedException{
