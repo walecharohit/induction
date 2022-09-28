@@ -41,8 +41,15 @@ class Main{
 				System.out.println("Searched element is here :  key - "+m.getKey() + "   Value - " +m.getValue());
 			}
 		}
+
+		Iterator<Map.Entry<Integer,Employee>> iteratorincrement = map.entrySet().iterator();
+		while(iteratorincrement.hasNext()){			
+			Map.Entry<Integer, Employee> newmap = (Map.Entry<Integer, Employee>)iteratorincrement.next();
+			if(newmap.getValue().getId() == 2){		
+				System.out.println("Searched element is here :  key - "+newmap.getKey()+ "   Value - " +newmap.getValue());
+			}  
 		}
-		
-	} 
+	}		
+} 
 
 
