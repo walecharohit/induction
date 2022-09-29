@@ -48,8 +48,7 @@ public class Employee{
 	}
 	
 	public String toString(){
-	
-		return id +" "+ name+" "+dept+" "+phone+" "+sal;
+			return id +" "+ name+" "+dept+" "+phone+" "+sal;
 	}
 }
 
