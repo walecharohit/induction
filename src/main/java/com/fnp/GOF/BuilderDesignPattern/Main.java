@@ -121,7 +121,6 @@ class DeployerGVK implements Integration{
 }
 
 class Manager{
-
 	private Integration integration;
 	
 	public Manager(Integration integration){
