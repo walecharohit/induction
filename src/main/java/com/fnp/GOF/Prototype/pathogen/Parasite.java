@@ -9,7 +9,7 @@ public class Parasite extends Pathogen{
 	}
    
 	@Override
-	void addPathogen(){
+	public void addPathogen(){
 		System.out.println("Parasite is added to the medical Database.");
 	} 
 }

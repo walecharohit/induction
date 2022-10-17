@@ -9,7 +9,7 @@ public class Protozoa extends Pathogen{
 	}
 	
 	@Override
-	void addPathogen(){
+	public void addPathogen(){
 		System.out.println("Pathogen is added to the medical Database. "+ this.medBaseId);
 	}
 }

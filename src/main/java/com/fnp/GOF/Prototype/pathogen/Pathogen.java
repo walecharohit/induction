@@ -8,7 +8,7 @@ public abstract class Pathogen implements Cloneable{
 	protected String pathogenName;
 	protected long medBaseId;
 
-	abstract void addPathogen();
+	public abstract void addPathogen();
 	public String toString(){
 		return pathogenName + " " + medBaseId;	
 	}
