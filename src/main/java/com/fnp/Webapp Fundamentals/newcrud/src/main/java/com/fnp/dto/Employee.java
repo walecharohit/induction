@@ -1,5 +1,10 @@
 package com.fnp.dto;
 
+/**
+ * The Employee Bean with getters and setters. 
+ * @author Saransh vijay
+ *
+ */
 public class Employee {
 
 	private int id;
