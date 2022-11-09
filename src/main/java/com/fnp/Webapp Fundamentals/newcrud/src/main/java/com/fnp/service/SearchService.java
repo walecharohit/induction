@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fnp.dao.DBOperation;
 import com.fnp.dto.Employee;
+import com.fnp.util.MapperUtils;
 import com.google.gson.JsonObject;
 
 /**
@@ -30,7 +31,7 @@ public class SearchService implements ServiceInterface{
 	 */
 	public void searchOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String status = "";
-		ObjectMapper objectMapper = new ObjectMapper();
+		final var objectMapper = MapperUtils.getObjectMapper();
 		
 		DBOperation c = new DBOperation();
 		ServletInputStream requestObj = req.getInputStream();

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fnp.dao.DBOperation;
+import com.fnp.util.MapperUtils;
 
 /**
  * Delete Service class.
@@ -26,7 +27,7 @@ public class DeleteService implements ServiceInterface{
 	public void deleteOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String obj = req.getParameter("obj2");
 		String status = "";
-		ObjectMapper objectMapper = new ObjectMapper();
+		final var objectMapper = MapperUtils.getObjectMapper();
 		DBOperation dbop = new DBOperation();
 
 		JsonNode jsonNode = objectMapper.readTree(obj);

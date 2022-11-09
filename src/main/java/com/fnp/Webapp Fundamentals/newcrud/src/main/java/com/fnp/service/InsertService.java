@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fnp.dao.DBOperation;
 import com.fnp.dto.Employee;
+import com.fnp.util.MapperUtils;
 /** 
  * * Delete Controller for delete operation.
  * @author Saransh vijay
@@ -23,7 +24,7 @@ public class InsertService implements ServiceInterface{
 	public void insertOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String status = "";
 		String obj = req.getParameter("obj");
-		ObjectMapper objectMapper = new ObjectMapper();
+		final var objectMapper = MapperUtils.getObjectMapper();
 		JsonNode jsonNode = objectMapper.readTree(obj);
 		DBOperation dbop = new DBOperation();
 

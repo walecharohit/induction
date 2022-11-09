@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fnp.dao.DBOperation;
 import com.fnp.dto.Employee;
+import com.fnp.util.MapperUtils;
 import com.google.gson.JsonObject;
 
 /**
@@ -25,7 +26,7 @@ public class DisplayService implements ServiceInterface{
 	 */
 	public void displayAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-		ObjectMapper objectMapper = new ObjectMapper();
+		final var objectMapper = MapperUtils.getObjectMapper();
 		
 		String obj = req.getParameter("obj2");
 		JsonNode jsonNode = objectMapper.readTree(obj);
