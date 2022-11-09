@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fnp.service.InsertService;
+import com.fnp.service.ServiceFactory;
+import com.fnp.service.ServiceInterface;
 
 /**
  * 
@@ -27,7 +28,9 @@ public class MainController extends HttpServlet {
 		/**
 		 * Call for Service class insert method.
 		 */
-		InsertService.insertOp(req, resp);
+		ServiceFactory service = new ServiceFactory();
+		ServiceInterface insert = service.serviceSelector("insert");
+		insert.insertOp(req, resp);
 
 	}
 }

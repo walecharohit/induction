@@ -5,26 +5,32 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fnp.dao.DBOperation;
 import com.fnp.dto.Employee;
 /** 
  * * Delete Controller for delete operation.
  * @author Saransh vijay
  */
-public class InsertService {
+public class InsertService implements ServiceInterface{
 	/**
 	 * 
 	 * @param obj
 	 * @return returns status of the insertion.
 	 * @throws IOException
 	 */
-	public static void insertOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void insertOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String status = "";
 		String obj = req.getParameter("obj");
-		Service.jsonNode = Service.objectMapper.readTree(obj);
-		int idData = Service.jsonNode.get("id").asInt();
-		String nameData = Service.jsonNode.get("name").asText();
-		long phoneData = Service.jsonNode.get("phone").asLong();
-		String deptData = Service.jsonNode.get("dept").asText();
+		ObjectMapper objectMapper = new ObjectMapper();
+		JsonNode jsonNode = objectMapper.readTree(obj);
+		DBOperation dbop = new DBOperation();
+
+		int idData = jsonNode.get("id").asInt();
+		String nameData = jsonNode.get("name").asText();
+		long phoneData = jsonNode.get("phone").asLong();
+		String deptData = jsonNode.get("dept").asText();
 
 		Employee emp = new Employee();
 
@@ -33,8 +39,32 @@ public class InsertService {
 		emp.setPhone(phoneData);
 		emp.setDept(deptData);
 
-		status = Service.c.insertEmp(emp);
+		status = dbop.insertEmp(emp);
 		resp.getWriter().write(status);
+	}
+
+	@Override
+	public void displayAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void searchOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

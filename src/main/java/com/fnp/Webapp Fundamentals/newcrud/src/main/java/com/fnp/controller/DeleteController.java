@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fnp.service.DeleteService;
+import com.fnp.service.ServiceFactory;
+import com.fnp.service.ServiceInterface;
 
 /**
  * 
@@ -27,7 +28,10 @@ public class DeleteController extends HttpServlet {
 		/**
 		 * String of deleteOperation from Service.
 		 */
-		DeleteService.deleteOp(req, resp);
+		
+		ServiceFactory service = new ServiceFactory();
+		ServiceInterface delete = service.serviceSelector("delete");
+		delete.deleteOp(req, resp);
 
 	}
 }

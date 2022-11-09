@@ -5,12 +5,16 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fnp.dao.DBOperation;
+
 /**
  * Delete Service class.
  * @author Saransh vijay
  *
  */
-public class DeleteService {
+public class DeleteService implements ServiceInterface{
 
 	/**
 	 * 
@@ -19,18 +23,41 @@ public class DeleteService {
 	 *         is its status.
 	 * @throws IOException
 	 */
-	public static void deleteOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void deleteOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String obj = req.getParameter("obj2");
 		String status = "";
-		Service.jsonNode = Service.objectMapper.readTree(obj);
-		int deleteit = Service.jsonNode.get("deleteit").asInt();
+		ObjectMapper objectMapper = new ObjectMapper();
+		DBOperation dbop = new DBOperation();
+
+		JsonNode jsonNode = objectMapper.readTree(obj);
+		int deleteit = jsonNode.get("deleteit").asInt();
 
 		if (deleteit != 0) {
-			status = Service.c.deleteEmp(deleteit);
+			status = dbop.deleteEmp(deleteit);
 		}
 		/**
 		 * response of delete operation.
 		 */
 		resp.getWriter().write(status);
+	}
+
+	@Override
+	public void displayAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+	}
+
+	@Override
+	public void searchOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+	}
+
+	@Override
+	public void insertOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+	}
+
+	@Override
+	public void updateOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
 	}
 }

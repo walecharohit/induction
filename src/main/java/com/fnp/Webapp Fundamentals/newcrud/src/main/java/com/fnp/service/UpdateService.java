@@ -5,6 +5,9 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fnp.dao.DBOperation;
 import com.fnp.dto.Employee;
 /**
  * Update Controller for update operation.
@@ -12,22 +15,23 @@ import com.fnp.dto.Employee;
  * @author Saransh vijay
  *
  */
-public class UpdateService {
+public class UpdateService implements ServiceInterface{
 	/**
 	 * 
 	 * @param obj
 	 * @return returns update status.
 	 * @throws IOException
 	 */
-	public static void updateOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void updateOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String status = "";
-
+		ObjectMapper objectMapper = new ObjectMapper();
 		String obj = req.getParameter("obj2");
-		Service.jsonNode = Service.objectMapper.readTree(obj);
-		int idData = Service.jsonNode.get("id").asInt();
-		String nameData = Service.jsonNode.get("name").asText();
-		long phoneData = Service.jsonNode.get("phone").asLong();
-		String deptData = Service.jsonNode.get("dept").asText();
+		JsonNode jsonNode = objectMapper.readTree(obj);
+		DBOperation dbop = new DBOperation();
+		int idData = jsonNode.get("id").asInt();
+		String nameData = jsonNode.get("name").asText();
+		long phoneData = jsonNode.get("phone").asLong();
+		String deptData = jsonNode.get("dept").asText();
 
 		Employee emp = new Employee();
 
@@ -36,7 +40,27 @@ public class UpdateService {
 		emp.setPhone(phoneData);
 		emp.setDept(deptData);
 
-		status = Service.c.updateEmp(emp);
+		status = dbop.updateEmp(emp);
 		resp.getWriter().write(status);
+	}
+
+	@Override
+	public void displayAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+	}
+
+	@Override
+	public void searchOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+	}
+
+	@Override
+	public void insertOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+	}
+
+	@Override
+	public void deleteOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {		
+	
 	}
 }

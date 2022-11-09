@@ -16,7 +16,7 @@ public class DBConnect {
 	public static Connection c = null;
 
 	public Connection establishConnection() {
-		PropertyReader.fileRead();
+		//PropertyReader.fileRead();
 		if (c != null) {
 			return c;
 		}

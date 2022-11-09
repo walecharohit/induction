@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fnp.service.DisplayService;
+import com.fnp.service.ServiceFactory;
+import com.fnp.service.ServiceInterface;
 
 /**
  * Show all database elements via this controller.
@@ -25,7 +26,9 @@ public class ShowAllController extends HttpServlet {
 		/**
 		 * String type od displayAll return type for sending to View.
 		 */
-		DisplayService.displayAll(req, resp);
+		ServiceFactory service = new ServiceFactory();
+		ServiceInterface show = service.serviceSelector("display");
+		show.displayAll(req, resp);
 
 	}
 

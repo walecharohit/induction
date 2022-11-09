@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fnp.service.Service;
+import com.fnp.service.ServiceFactory;
+import com.fnp.service.ServiceInterface;
 /**
  * 
  * Search controller used for search service.
@@ -22,9 +23,12 @@ public class SearchController extends HttpServlet {
 	@Override
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		/**
 		 * String return of object of Searched object.
 		 */
-		Service.searchOp(req, resp);
+		ServiceFactory service = new ServiceFactory();
+		ServiceInterface search = service.serviceSelector("search");
+		search.searchOp(req, resp);
 	}
 }

@@ -20,21 +20,7 @@ import com.google.gson.JsonObject;
  * @category Service Layer class.
  */
 
-public class Service {
-
-	/**
-	 * ObjectMapper class Of the the Jackson package is used for parsing the
-	 * elements of a string type Json object.
-	 */
-	static ObjectMapper objectMapper = new ObjectMapper();
-	/**
-	 * An instance of DBOperation class is used to perform all the database
-	 * operation.
-	 */
-	static DBOperation c = new DBOperation();
-
-	String status;
-	static JsonNode jsonNode;
+public class SearchService implements ServiceInterface{
 
 	/**
 	 * 
@@ -42,10 +28,13 @@ public class Service {
 	 * @return String type of searched object as String.
 	 * @throws IOException
 	 */
-	public static void searchOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void searchOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String status = "";
+		ObjectMapper objectMapper = new ObjectMapper();
+		
+		DBOperation c = new DBOperation();
 		ServletInputStream requestObj = req.getInputStream();
-		jsonNode = objectMapper.readTree(requestObj);
+		JsonNode jsonNode = objectMapper.readTree(requestObj);
 		int searchit = jsonNode.get("search").asInt();
 		JsonObject json = new JsonObject();
 		Employee ef = new Employee();
@@ -82,6 +71,26 @@ public class Service {
 		 * sending response of the object to View.
 		 */
 		resp.getWriter().write(status);
+	}
+
+	@Override
+	public void displayAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+	}
+
+	@Override
+	public void insertOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+	}
+
+	@Override
+	public void updateOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+	}
+
+	@Override
+	public void deleteOp(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
 	}
 
 }
