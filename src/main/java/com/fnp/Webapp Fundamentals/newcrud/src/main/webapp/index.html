@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Crud</title>
+</head>
+<body>
+	<style>
+body {
+	background-color: DarkGray;
+	font-family: verdana;
+	font-size: 15px;
+}
+
+#field {
+	width: 600px;
+}
+
+#display1 {
+	width: 600px;
+	background-color: SlateGray;
+}
+
+#display {
+	width: 600px;
+	background-color: SlateGray;
+	padding: 45px;
+	display: none;
+}
+</style>
+	<fieldset id=field>
+
+		<form action="#" method="post" id="theForm">
+
+			<h2>Crud ops.</h2>
+			<input type="submit" id="showBtn" value="Show All Employees">
+
+			<fieldset>
+				<legend>Insert, Update and Display</legend>
+				<label for="id">Enter Id :</label> <input type="number" name="id"
+					id="id" value="1"><br /> <label for="name">Enter
+					Name :</label> <input type="text" name="name" id="name" value="testname"><br />
+				<label for="phone">Enter Phone :</label> <input type="number"
+					name="phone" id="phone" value="1234567890"><br /> <label
+					for="dept">Enter Dept :</label> <input type="text" name="dept"
+					id="dept" value="jkh"><br /> <input type="submit"
+					value="Submit"> <input type="submit" id="updateBtn"
+					value="Update">
+			</fieldset>
+			<fieldset>
+				<legend>Search</legend>
+				<label for="search">Enter Id :</label> <input type="number"
+					name="search" id="search" value="1"><br /> <input
+					type="submit" id="searchBtn" value="Search">
+			</fieldset>
+			<fieldset>
+				<legend>Delete</legend>
+				<label for="delete">Enter Id :</label> <input type="number"
+					name="delete" id="delete" value="1"><br /> <input
+					type="submit" id="deleteBtn" value="Delete">
+			</fieldset>
+
+		</form>
+		<div id=display2></div>
+		<div id=display1></div>
+		<div id=display></div>
+	</fieldset>
+	<script>
+     var xhttp = new XMLHttpRequest();
+     
+     formData = {};
+     let resObj = {};
+     let obs = [];
+     
+     function xhr(formData){
+         const stringObj = JSON.stringify(formData)
+         xhttp.open("POST","Main?obj="+encodeURI(stringObj),true);
+         xhttp.onreadystatechange = fetchResp;
+         xhttp.send();
+     }
+     
+     function fetchResp(){
+     	if(xhttp.readyState == 4 && xhttp.status == 200) {
+            //console.log(xhttp.responseText);
+            //console.log(JSON.parse(xhttp.responseText));
+            let resText = xhttp.responseText;
+            console.log(resText);
+   		 	document.getElementById("display2").innerHTML = resText;
+
+            //obs = resText.split("-");
+            //console.log(obs);
+            //resObj = JSON.parse(xhttp.responseText);
+            
+            //document.getElementById("display").innerHTML = obs;
+            //for(let i = 0; i<obs.length - 1; i++){ 
+            	//document.getElementById("display").innerHTML = JSON.parse(e);
+            	//console.log(obs[i]);
+            //}
+        }
+    }
+         
+     function searchResp(){
+      	if(xhttp.readyState == 4 && xhttp.status == 200) {
+      		console.log(xhttp.responseText);
+      		let resText = JSON.parse(xhttp.responseText);
+      		
+      		console.log(resText);
+      		if(resText.hasOwnProperty("id")){
+      			let o = resText;
+      			document.getElementById("display2").innerHTML = `${o.id}  ${o.name}  ${o.phone}  ${o.dept}`;
+      			}else if(resText.hasOwnProperty("error")){
+      					console.log("ghjg");
+      	      			let resText = JSON.parse(xhttp.responseText);
+      	      			console.log(resText.error);
+      	      			localStorage.setItem("error", resText.error);
+      	      			window.location.href = '/newcrud/error.html';
+      			}else if(resText.hasOwnProperty("flag")){
+      				document.getElementById("display2").innerHTML = resText.flag;
+      			}
+      	//}else if(xhttp.readyState == 4 && xhttp.status == 500){
+      		//console.log("ghjg");
+      		//let resText = JSON.parse(xhttp.responseText);
+      		//console.log(resText.error);
+      		//localStorage.setItem("error", resText.error);
+      		//window.location.href = '/newcrud/error.html';
+      	}
+      }
+     function updateResp(){
+    	 if(xhttp.readyState == 4 && xhttp.status == 200){
+    		 let resText = xhttp.responseText;
+    		 console.log(resText);
+    		 document.getElementById("display2").innerHTML = resText;
+    	 }
+     }
+    	 
+     
+     function deleteResp(){
+    	 if(xhttp.readyState == 4 && xhttp.status == 200){
+    		 let resText = xhttp.responseText;
+    		 console.log(resText);
+    		 document.getElementById("display2").innerHTML = resText;
+    	 }
+     }
+     function showResp(){
+      	if(xhttp.readyState == 4 && xhttp.status == 200) {
+             
+             let resText1 = xhttp.responseText;
+             obs = resText1.split("-");
+             console.log(obs);
+             console.log(resText1);
+             document.getElementById("display").style.display = 'block';
+             //obs = resText.split("-");
+             //document.getElementById("display").innerHTML = resText1;
+             let out ="<table><tr><th>ID</th><th>NAME</th><th>PHONE</th><th>DEPT</th></tr>";
+             
+             for(let i=0;i<obs.length-1;i++){
+            	 out += "<tr><td>" + JSON.parse(obs[i]).id + "</td><td>" + JSON.parse(obs[i]).name + "</td><td>" + JSON.parse(obs[i]).phone + "</td><td>" + JSON.parse(obs[i]).dept + "</td></tr>";
+            	 
+             }
+             out += "</table>";
+             document.getElementById("display").innerHTML = out;
+         }
+     }
+        document.getElementById("theForm").addEventListener("submit",dataStack = (event) =>{
+            event.preventDefault();
+            let id = parseInt(document.getElementById("id").value);
+            let name = document.getElementById("name").value;
+            let phone = parseInt(document.getElementById("phone").value);
+            let dept = document.getElementById("dept").value;
+            
+            let phoneNum = phone;
+            
+            if(Number.isInteger(id)){
+            	formData.id = id;
+            }else{
+            	document.getElementById("id").value = "";
+            }
+
+            let pattern = /\W/gi;
+           	let res = name.match(pattern);
+            //console.log(res);
+			if(res== null){
+				formData.name = name;
+			}
+            //if can be used or not?
+            let count = 0;
+            while(phone >= 1){
+                phone = parseInt(phone) / 10;
+                
+                count++;
+            }
+			if(count == 10){
+				formData.phone = phoneNum;
+			}else{
+				document.getElementById("phone").value = ""; 
+			}
+                  
+            formData.dept = dept;
+            xhr(formData);
+            
+        });
+        document.getElementById("searchBtn").addEventListener("click",(event) =>{
+            event.preventDefault();
+         
+            let searchit = parseInt(document.getElementById("search").value);
+            if(searchit != null){
+            	formData.search = searchit;
+            }else{
+            	formData.search = 0;
+            }
+            
+            
+            const stringObj = JSON.stringify(formData)
+            const obj2 = stringObj;
+            //xhttp.open("POST","search?obj2="+encodeURI(stringObj),true);
+            xhttp.open("POST","search",true);
+            //xhttp.setRequestHeader('Content-Type', 'application/json')
+            xhttp.send(JSON.stringify(formData));
+            xhttp.onreadystatechange = searchResp;
+            
+        })
+        
+        document.getElementById("deleteBtn").addEventListener("click",(event) =>{
+            event.preventDefault();
+         
+            let deleteIt = parseInt(document.getElementById("delete").value);
+            if(deleteIt != null){
+            	formData.deleteit = deleteIt;
+            }else{
+            	formData.search = 0;
+            }
+            
+            
+            const stringObj = JSON.stringify(formData)
+            //xhttp.open("POST","delete",true);
+            xhttp.open("POST","delete?obj2="+encodeURI(stringObj),true);
+            xhttp.onreadystatechange = deleteResp;
+            xhttp.send();
+        })
+        
+        document.getElementById("showBtn").addEventListener("click",(event) =>{
+            event.preventDefault();
+         
+            let showIt = 1;
+           	formData.showit = showIt;
+            const stringObj = JSON.stringify(formData)
+            xhttp.open("POST","show?obj2="+encodeURI(stringObj),true);
+            xhttp.onreadystatechange = showResp;
+            xhttp.send();
+        })
+        document.getElementById("updateBtn").addEventListener("click",(event) =>{
+            event.preventDefault();
+            let id = parseInt(document.getElementById("id").value);
+            let name = document.getElementById("name").value;
+            let phone = parseInt(document.getElementById("phone").value);
+            let dept = document.getElementById("dept").value;
+            
+            formData.id = id;
+            formData.name = name;
+            formData.phone = phone;
+            formData.dept = dept;
+            
+            const stringObj = JSON.stringify(formData)
+            xhttp.open("POST","update?obj2="+encodeURI(stringObj),true);
+            xhttp.onreadystatechange = updateResp;
+            xhttp.send();
+        })
+     
+        
+      
+    </script>
+</body>
+</html>

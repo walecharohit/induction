@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>Error Page</h2>
+	<img
+		src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg"
+		width="200" height="150"></img>
+	<h3 id="display"></h3>
+	<!-- <a href="/newcrud/index.html">Back to Home Page</a> -->
+
+	<form action="/newcrud/index.html">
+		<input type="submit" value="Back to Home Page" />
+	</form>
+
+	<script type="text/javascript">
+		let x = localStorage.getItem("error");
+		console.log(x);
+		document.getElementById("display").innerHTML = x;
+		//localStorage.clear()
+	</script>
+</body>
+</html>
